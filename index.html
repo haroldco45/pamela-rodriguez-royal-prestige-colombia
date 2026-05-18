@@ -1,24 +1,565 @@
-{
-  "name": "Pamela Rodríguez - Royal Prestige Buga",
-  "short_name": "Pamela RP",
-  "description": "Tarjeta de Presentación Digital y Catálogo de Productos Royal Prestige en Buga, Valle.",
-  "start_url": "./index.html",
-  "display": "standalone",
-  "background_color": "#0a192f",
-  "theme_color": "#003399",
-  "orientation": "portrait",
-  "icons": [
-    {
-      "src": "./royalP.PNG",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "./royalP.PNG",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    }
-  ]
-}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pamela Rodríguez - Royal Prestige Buga</title>
+    
+    <link rel="manifest" href="manifest.json">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <meta name="theme-color" content="#003399">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Pamela RP">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <style>
+        /* Paleta de colores inspirada en el logo del León de Royal Prestige */
+        :root {
+            --primary-blue: #003399;
+            --gradient-blue-light: #0055ff;
+            --silver-metal: #e2e8f0;
+            --dark-blue: #0a192f;
+            --white: #ffffff;
+            --gray-light: #f8fafc;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--silver-metal);
+            color: var(--dark-blue);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 10px;
+        }
+
+        /* Contenedor tipo celular para máxima fidelidad en pantallas móviles */
+        .app-container {
+            background-color: var(--white);
+            width: 100%;
+            max-width: 450px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 90vh;
+        }
+
+        /* Encabezado Principal de la Distribuidora */
+        .app-header {
+            background: linear-gradient(135deg, var(--dark-blue), var(--primary-blue));
+            color: var(--white);
+            text-align: center;
+            padding: 30px 20px;
+            position: relative;
+        }
+
+        .logo-placeholder {
+            width: 90px;
+            height: 90px;
+            background-color: var(--white);
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            border: 3px solid var(--silver-metal);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .app-header h1 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+
+        .app-header p {
+            font-size: 0.9rem;
+            color: #cbd5e1;
+        }
+
+        /* Contenido de la Aplicación */
+        .app-content {
+            padding: 20px;
+            flex-grow: 1;
+        }
+
+        /* Botón de Catálogo Destacado */
+        .btn-catalog {
+            background: linear-gradient(135deg, #0055ff, #003399);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 16px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(0, 51, 153, 0.3);
+            margin-bottom: 25px;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s;
+            width: 100%;
+        }
+
+        .btn-catalog:active {
+            transform: scale(0.98);
+        }
+
+        /* Sección de Redes Sociales Solicitadas */
+        .social-section {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .social-section h3 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            color: #64748b;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .social-grid {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--white);
+            text-decoration: none;
+            font-size: 1.3rem;
+            transition: opacity 0.2s;
+        }
+
+        .facebook { background-color: #1877f2; }
+        .instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+        .youtube { background-color: #ff0000; }
+        .whatsapp-direct { background-color: #25d366; }
+
+        .social-icon:active {
+            opacity: 0.8;
+        }
+
+        /* Sección del Formulario de Registro */
+        .form-section {
+            background-color: var(--gray-light);
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .form-section h2 {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: var(--dark-blue);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #475569;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            color: var(--dark-blue);
+            background-color: var(--white);
+        }
+
+        .form-control:focus {
+            outline: 2px solid var(--primary-blue);
+        }
+
+        /* Estado del Módulo GPS Visual */
+        .gps-status {
+            font-size: 0.8rem;
+            padding: 8px;
+            border-radius: 6px;
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 500;
+        }
+
+        .gps-waiting { background-color: #fef3c7; color: #92400e; }
+        .gps-success { background-color: #dcfce7; color: #166534; }
+        .gps-error { background-color: #fee2e2; color: #991b1b; }
+
+        .btn-submit {
+            width: 100%;
+            background-color: #25d366;
+            color: var(--white);
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 15px;
+            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.2);
+        }
+
+        /* Modal Desplegable del Catálogo */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+        }
+
+        .modal-content {
+            background-color: var(--white);
+            width: 100%;
+            max-width: 420px;
+            max-height: 85vh;
+            border-radius: 16px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-header {
+            background-color: var(--dark-blue);
+            color: var(--white);
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .catalog-list {
+            padding: 15px;
+        }
+
+        .catalog-category {
+            margin-bottom: 20px;
+        }
+
+        .catalog-category h4 {
+            color: var(--primary-blue);
+            border-bottom: 2px solid var(--silver-metal);
+            padding-bottom: 4px;
+            margin-bottom: 10px;
+            font-size: 1rem;
+            text-transform: uppercase;
+        }
+
+        .catalog-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 0.9rem;
+        }
+
+        /* Footer Obligatorio - Derechos de Autor de la Marca */
+        .app-footer {
+            background-color: var(--dark-blue);
+            color: #94a3b8;
+            text-align: center;
+            padding: 15px;
+            font-size: 0.75rem;
+            border-top: 1px solid #1e293b;
+        }
+
+        .app-footer strong {
+            color: var(--white);
+        }
+    </style>
+    
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then((reg) => console.log('Service Worker registrado correctamente.', reg.scope))
+                    .catch((err) => console.error('Error al intentar registrar el Service Worker:', err));
+            });
+        }
+    </script>
+</head>
+<body>
+
+    <div class="app-container">
+        <header class="app-header">
+            <div class="logo-placeholder">
+                <img src="royalP.PNG" alt="Royal Prestige Logo">
+            </div>
+            <h1>Pamela Rodríguez Sánchez</h1>
+            <p>Distribuidora Independiente Royal Prestige</p>
+            <p><i class="bi bi-geo-alt-fill"></i> Buga, Valle del Cauca</p>
+        </header>
+
+        <div class="app-content">
+            <button class="btn-catalog" onclick="openCatalog()">
+                <i class="bi bi-book-half"></i> Ver Catálogo de Productos
+            </button>
+
+            <div class="social-section">
+                <h3>Conéctate Conmigo</h3>
+                <div class="social-grid">
+                    <a href="https://www.facebook.com/royalprestigecolombiaoficial/" target="_blank" class="social-icon facebook" title="Facebook">
+                        <i class="bi bi-facebook"></i>
+                    </a>
+                    <a href="https://www.instagram.com/royalprestigecolombiaoficial/" target="_blank" class="social-icon instagram" title="Instagram">
+                        <i class="bi bi-instagram"></i>
+                    </a>
+                    <a href="https://www.youtube.com/c/RoyalPrestigeColombiaOficial" target="_blank" class="social-icon youtube" title="YouTube">
+                        <i class="bi bi-youtube"></i>
+                    </a>
+                    <a href="https://wa.me/573152778851" target="_blank" class="social-icon whatsapp-direct" title="WhatsApp Directo">
+                        <i class="bi bi-whatsapp"></i>
+                    </a>
+                </div>
+            </div>
+
+            <section class="form-section">
+                <h2><i class="bi bi-person-badge-fill"></i> Registro de Visita</h2>
+                <form id="clientForm" onsubmit="sendToWhatsApp(event)">
+                    <div class="form-group">
+                        <label for="clientName">Nombre del Cliente:</label>
+                        <input type="text" id="clientName" class="form-control" placeholder="Ej. Juan Pérez" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="clientPhone">Celular / WhatsApp:</label>
+                        <input type="tel" id="clientPhone" class="form-control" placeholder="Ej. 3001234567" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="clientObs">Observaciones / Productos de Interés:</label>
+                        <textarea id="clientObs" class="form-control" rows="3" placeholder="Ej. Interesado en el Sistema de Cocina Familiar..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Geolocalización Comercial:</label>
+                        <div id="gpsContainer" class="gps-status gps-waiting">
+                            <i class="bi bi-geo-fill"></i> <span id="gpsText">Obteniendo coordenadas actuales...</span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-submit">
+                        <i class="bi bi-whatsapp"></i> Enviar Reporte a Pamela
+                    </button>
+                </form>
+            </section>
+        </div>
+
+        <div id="catalogModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Catálogo de Productos</h3>
+                    <button class="modal-close" onclick="closeCatalog()">×</button>
+                </div>
+                <div class="catalog-list">
+                    
+                    <div class="catalog-category">
+                        <h4>Sistemas de Cocina</h4>
+                        <div class="catalog-item"><span>Sistema Profesional (15 Piezas)</span> <span>Acero Quirúrgico 316L</span></div>
+                        <div class="catalog-item"><span>Sistema Familiar (10 Piezas)</span> <span>Ideal Familias</span></div>
+                        <div class="catalog-item"><span>Sistema Especial (8 Piezas)</span> <span>Estilo y Versatilidad</span></div>
+                        <div class="catalog-item"><span>Sistema Clásico (7 Piezas)</span> <span>Máximo Sabor</span></div>
+                        <div class="catalog-item"><span>Sistema Complementario / Esencial</span> <span>5 Piezas</span></div>
+                    </div>
+
+                    <div class="catalog-category">
+                        <h4>Sartenes Especiales</h4>
+                        <div class="catalog-item"><span>Sartenes Gourmet</span> <span>20 cm y 24 cm con Tapa</span></div>
+                        <div class="catalog-item"><span>Deluxe Easy Release</span> <span>Antiadherentes (8", 10", 12")</span></div>
+                        <div class="catalog-item"><span>MultiPan Royal Prestige</span> <span>11 funciones en 1</span></div>
+                        <div class="catalog-item"><span>Paelleras de Altas Prestaciones</span> <span>10" y 14" con Tapa</span></div>
+                    </div>
+
+                    <div class="catalog-category">
+                        <h4>Altas Capacidades y Presión</h4>
+                        <div class="catalog-item"><span>Olla de Presión Segura</span> <span>6 Litros y 10 Litros</span></div>
+                        <div class="catalog-item"><span>Ollas Grandes de Reunión</span> <span>12, 20 y 30 Cuartos</span></div>
+                        <div class="catalog-item"><span>Pavera Ovalada Premium</span> <span>Dimensiones: 46 cm x 33 cm</span></div>
+                    </div>
+
+                    <div class="catalog-category">
+                        <h4>Línea de Electrodomésticos</h4>
+                        <div class="catalog-item"><span>Power Blender Max</span> <span>Jarra de Vidrio 48 oz</span></div>
+                        <div class="catalog-item"><span>Power Blender Go / Plus</span> <span>Licuadora Inalámbrica</span></div>
+                        <div class="catalog-item"><span>Extractor de Jugos (Juicer)</span> <span>Prensado en frío</span></div>
+                        <div class="catalog-item"><span>Precision Cook</span> <span>Cocción por Inducción</span></div>
+                    </div>
+
+                    <div class="catalog-category">
+                        <h4>Café, Té y Chocolate</h4>
+                        <div class="catalog-item"><span>Prensa Francesa Barista</span> <span>72 oz (Mantiene 2h calor)</span></div>
+                        <div class="catalog-item"><span>Chocolatera de Acero T-304</span> <span>Capacidad de 2.6 Litros</span></div>
+                        <div class="catalog-item"><span>Tetera ExperTea</span> <span>74 oz con Alerta Sonora</span></div>
+                        <div class="catalog-item"><span>Cafetera Espresso Italiana</span> <span>Capacidad para 4 y 10 Tazas</span></div>
+                    </div>
+
+                    <div class="catalog-category">
+                        <h4>Sistemas de Filtración de Agua</h4>
+                        <div class="catalog-item"><span>FrescaFlow Ósmosis Inversa</span> <span>Grifo Inteligente 4 Etapas</span></div>
+                        <div class="catalog-item"><span>FrescaPure 3500</span> <span>Conexión Directa e Indicador LED</span></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <footer class="app-footer">
+            <p>© 2026 <strong>Vibras Positivas HM</strong>. Todos los derechos reservados.</p>
+            <p>Diseño Tecnológico a la Medida para Emprendedores.</p>
+        </footer>
+    </div>
+
+    <script>
+        let globalLatitude = "";
+        let globalLongitude = "";
+
+        // Inicialización automatizada del GPS al cargar la aplicación móvil
+        window.addEventListener('DOMContentLoaded', () => {
+            getLiveLocation();
+        });
+
+        function getLiveLocation() {
+            const gpsContainer = document.getElementById('gpsContainer');
+            const gpsText = document.getElementById('gpsText');
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        globalLatitude = position.coords.latitude;
+                        globalLongitude = position.coords.longitude;
+                        gpsContainer.className = "gps-status gps-success";
+                        gpsText.innerText = `Ubicación Comercial Confirmada (${globalLatitude.toFixed(4)}, ${globalLongitude.toFixed(4)})`;
+                    },
+                    (error) => {
+                        gpsContainer.className = "gps-status gps-error";
+                        gpsText.innerText = "Permiso de GPS denegado o no disponible.";
+                        console.warn("Error de Geolocalización: ", error.message);
+                    },
+                    { enableHighAccuracy: true, timeout: 10000 }
+                );
+            } else {
+                gpsContainer.className = "gps-status gps-error";
+                gpsText.innerText = "El navegador o dispositivo no soporta geolocalización.";
+            }
+        }
+
+        // Controladores de Apertura y Cierre del Modal del Catálogo
+        function openCatalog() {
+            document.getElementById('catalogModal').style.display = 'flex';
+        }
+
+        function closeCatalog() {
+            document.getElementById('catalogModal').style.display = 'none';
+        }
+
+        // Cierre de seguridad haciendo clic por fuera del cuadro blanco del modal
+        window.onclick = function(event) {
+            const modal = document.getElementById('catalogModal');
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        // Procesamiento y envío de datos ordenados hacia el WhatsApp API de Pamela
+        function sendToWhatsApp(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('clientName').value.trim();
+            const phone = document.getElementById('clientPhone').value.trim();
+            const obs = document.getElementById('clientObs').value.trim() || "Sin observaciones adicionales.";
+            
+            // Construcción del mensaje formateado para Pamela
+            let message = `*NUEVO CLIENTE REGISTRADO*\n`;
+            message += `----------------------------------------\n`;
+            message += `*Asesor:* Pamela Rodríguez Sánchez\n`;
+            message += `*Cliente:* ${name}\n`;
+            message += `*Celular:* ${phone}\n`;
+            message += `*Observaciones:* ${obs}\n\n`;
+
+            // Geoposicionamiento adjuntado de manera limpia y sin errores de caracteres
+            if (globalLatitude && globalLongitude) {
+                message += `*📍 Ubicación en Google Maps:*\n`;
+                message += `https://www.google.com/maps?q=${globalLatitude},${globalLongitude}\n`;
+            } else {
+                message += `*📍 Ubicación:* No provista por el dispositivo.\n`;
+            }
+            
+            message += `----------------------------------------\n`;
+            message += `_Enviado desde tu Tarjeta Digital PWA._\n`;
+            message += `_Hecha por Vibras Positivas HM_`;
+
+            // Codificación de caracteres segura
+            const encodedMessage = encodeURIComponent(message);
+            
+            // Link de despacho directo hacia el número móvil de Pamela Rodríguez
+            const whatsappUrl = `https://api.whatsapp.com/send?phone=573152778851&text=${encodedMessage}`;
+
+            // Apertura fluida en pestaña nueva externa
+            window.open(whatsappUrl, '_blank');
+        }
+    </script>
+</body>
+</html>
