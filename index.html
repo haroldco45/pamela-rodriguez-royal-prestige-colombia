@@ -246,7 +246,7 @@
             box-shadow: 0 4px 10px rgba(37, 211, 102, 0.2);
         }
 
-        /* Footer Obligatorio - Derechos de Autor de la Marca */
+        /* Footer Obligatorio - Derechos de Autor Protegidos */
         .app-footer {
             background-color: var(--dark-blue);
             color: #94a3b8;
@@ -284,7 +284,7 @@
         </header>
 
         <div class="app-content">
-            <a href="catalogorp.pdf" target="_blank" class="btn-catalog">
+            <a href="./catalogorp.pdf" target="_blank" class="btn-catalog">
                 <i class="bi bi-file-earmark-pdf-fill"></i> Ver Catálogo de Productos (PDF)
             </a>
 
@@ -339,7 +339,7 @@
         </div>
 
         <footer class="app-footer">
-            <p>© 2026 <strong>Vibras Positivas HM</strong>. Todos los derechos reservados.</p>
+            <p>© 2026 <strong>VIBRAS POSITIVAS HM</strong>. Todos los derechos reservados.</p>
             <p>Diseño Tecnológico a la Medida para Emprendedores.</p>
         </footer>
     </div>
@@ -394,7 +394,7 @@
             message += `*Celular:* ${phone}\n`;
             message += `*Observaciones:* ${obs}\n\n`;
 
-            // Geoposicionamiento adjuntado de manera limpia sin caracteres corruptos en el enlace
+            // Geoposicionamiento corregido con sintaxis JS estándar ${}
             if (globalLatitude && globalLongitude) {
                 message += `*📍 Ubicación en Google Maps:*\n`;
                 message += `https://maps.google.com/?q=${globalLatitude},${globalLongitude}\n`;
@@ -404,7 +404,7 @@
             
             message += `----------------------------------------\n`;
             message += `_Enviado desde tu Tarjeta Digital PWA._\n`;
-            message += `_Hecha por Vibras Positivas HM_`;
+            message += `_Hecha por VIBRAS POSITIVAS HM_`;
 
             // Codificación de caracteres segura
             const encodedMessage = encodeURIComponent(message);
