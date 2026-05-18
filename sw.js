@@ -3,28 +3,29 @@ const ASSETS_TO_CACHE = [
   './',
   './index.html',
   './manifest.json',
+  './royalP.PNG',
   'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css'
 ];
 
-// Evento de Instalación: Guarda los archivos esenciales en la caché del celular
+// Evento de Instalación: Guarda los archivos en caché
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      console.log('Caché configurada con éxito');
+      console.log('Archivos y logotipo guardados en caché con éxito.');
       return cache.addAll(ASSETS_TO_CACHE);
     })
   );
   self.skipWaiting();
 });
 
-// Evento de Activación: Limpia versiones viejas de caché si se llega a actualizar la app
+// Evento de Activación: Limpia memorias antiguas si actualizas el código
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames.map((cache) => {
           if (cache !== CACHE_NAME) {
-            console.log('Borrando caché antigua:', cache);
+            console.log('Borrando caché obsoleta:', cache);
             return caches.delete(cache);
           }
         })
@@ -34,9 +35,8 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
-// Evento Fetch: Intercepta las peticiones para que la app funcione sin internet (Offline)
+// Evento Fetch: Carga inmediata desde caché si no hay datos móviles
 self.addEventListener('fetch', (event) => {
-  // Solo interceptar peticiones de tipo GET estándar (evita errores con APIs de geolocalización o WhatsApp)
   if (event.request.method !== 'GET') return;
 
   event.respondWith(
@@ -45,7 +45,6 @@ self.addEventListener('fetch', (event) => {
         return cachedResponse;
       }
       return fetch(event.request).catch(() => {
-        // Si no hay internet y no está en caché, no rompe la app
         return new Response('Modo fuera de línea activo.');
       });
     })
