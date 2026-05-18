@@ -9,13 +9,13 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/10054/10054294.png",
+      "src": "./royalP.PNG",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/10054/10054294.png",
+      "src": "./royalP.PNG",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
